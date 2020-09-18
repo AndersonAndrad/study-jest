@@ -2,6 +2,7 @@ const request = require('supertest');
 const App = require('../../src/App');
 const truncate = require('../utils/truncate');
 const factory = require('../factories');
+const faker = require('faker');
 
 describe('Authentication', () => {
   beforeEach(async () => {
@@ -9,13 +10,11 @@ describe('Authentication', () => {
   });
 
   it('should authenticate with valid credentials', async () => {
-    const user = await factory.create('User', {
-      password: '123123',
-    });
+    const user = await factory.create('User');
 
     const response = await request(App).post('/sessions').send({
       email: user.email,
-      password: '123123',
+      password: user.password,
     });
 
     expect(response.status).toBe(200);
@@ -66,11 +65,21 @@ describe('Authentication', () => {
   });
 
   it('should not be able to access private routes with invalid JWT', async () => {
-    const user = await factory.create('User');
+    await factory.create('User');
 
     const response = await request(App)
       .get('/dashboard')
       .set('Authorization', `Bearer 123123`);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should receive an error when a registered user is not found to login', async () => {
+    const response = await request(App).post('/sessions').send({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
 
     expect(response.status).toBe(401);
   });
