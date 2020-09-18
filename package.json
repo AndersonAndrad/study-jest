@@ -1,0 +1,32 @@
+{
+  "name": "study-jest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/server.js --ignore __tests__",
+    "pretest": "sequelize db:migrate",
+    "test": "jest",
+    "posttest": "sequelize db:migrate:undo:all"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.14",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^5.1.0",
+    "jest": "^26.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.4",
+    "pg": "^8.3.3",
+    "sequelize": "^6.3.5",
+    "sucrase": "^3.15.0",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/faker": "^5.1.0",
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.0"
+  }
+}
