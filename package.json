@@ -7,7 +7,8 @@
     "start": "nodemon src/server.js --ignore __tests__",
     "pretest": "sequelize db:migrate",
     "test": "jest",
-    "posttest": "sequelize db:migrate:undo:all"
+    "posttest": "sequelize db:migrate:undo:all",
+    "test user": "jest -- user.test.js"
   },
   "dependencies": {
     "@types/jest": "^26.0.14",
@@ -22,7 +23,8 @@
     "pg": "^8.3.3",
     "sequelize": "^6.3.5",
     "sucrase": "^3.15.0",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@types/faker": "^5.1.0",
